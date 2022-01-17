@@ -1,0 +1,14 @@
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "MrCoul",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
