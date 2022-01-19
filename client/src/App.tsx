@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Button } from "@mui/material";
 import { observer } from "mobx-react";
 import { useStore } from "./hooks/useStore";
 
@@ -9,13 +8,13 @@ const App = observer(() => {
     const params = {
       name: "Coul",
     };
-    await store.storage.fetchGetData("/api", params);
+    await store.storage.fetchGetData("/api/post", params);
   };
 
   useEffect(() => {
     init();
   }, []);
 
-  return <div className="App"></div>;
+  return <div className="App"/>;
 });
 export default App;
