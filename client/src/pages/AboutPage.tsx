@@ -2,6 +2,6 @@ import React from "react";
 import { observer } from "mobx-react";
 
 export const AboutPage = observer(() => {
-    return <div className='AboutPage'/>;
+    return <div className='AboutPage'>About</div>;
 });
 
