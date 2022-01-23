@@ -1,7 +1,9 @@
-.logoWrap {
-    cursor: pointer;
-
+.LogoContainer {
+    display: flex;
+    justify-content: center;
+    width: 149px;
 }
-.logoWrap:hover {
-    /*background: aliceblue;*/
+.Logo {
+    cursor: pointer;
+    position: absolute;
 }
