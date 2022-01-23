@@ -10,6 +10,8 @@ export const AppContainer = observer(() => {
       <Routes>
         <Route path={"/"} element={<MainPage />} />
         <Route path={"/about"} element={<AboutPage />} />
+        <Route path={"/courses"} element={<AboutPage />} />
+        <Route path={"/guide"} element={<AboutPage />} />
       </Routes>
     </BrowserRouter>
   );

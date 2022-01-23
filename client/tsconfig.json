@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "target": "ES6",
     "outDir": "./built",
     "lib": [
       "dom",
@@ -19,11 +20,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*", "src/optional.d.ts"],
+  "exclude": ["node_modules", "build"]
 }
