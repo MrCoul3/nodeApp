@@ -2,9 +2,10 @@ import LocalizedStrings from "react-localization";
 import { en } from "./en";
 import { ru } from "./ru";
 
-const dictionaries = {
+export const dictionaries = {
     ru,
-    en,
+    en
 };
+
 
 export const strings = new LocalizedStrings(dictionaries);

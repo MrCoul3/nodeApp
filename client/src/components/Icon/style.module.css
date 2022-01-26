@@ -1,3 +1,7 @@
 .img {
-    transition: all ease .1s;
+    transition: all ease .05s;
+}
+.iconWrapper {
+    display: flex;
+    align-items: center;
 }

@@ -1,13 +1,15 @@
 import { makeAutoObservable } from "mobx";
+import {dictionaries} from "../locale";
 
 export interface IParams {
   name: string;
 }
-
 export class Storage {
+
   constructor() {
     makeAutoObservable(this);
   }
+
 
   async fetchGetData(url: string, params: IParams) {
     try {

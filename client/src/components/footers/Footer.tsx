@@ -4,6 +4,6 @@ import React from "react";
 
 export const Footer = observer(() => {
     return (
-        <div className='Footer'>footer</div>
+        <div className='Footer'></div>
     );
 });

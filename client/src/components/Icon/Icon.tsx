@@ -7,7 +7,7 @@ export const Icon = (props: {
   height?: string;
 }) => {
   return (
-    <div>
+    <div className={style.iconWrapper}>
       <img className={style.img}
         style={{ width: props.width, height: props.height }}
         src={props.icon}
