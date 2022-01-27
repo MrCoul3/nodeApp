@@ -13,7 +13,9 @@ import {FlexContainer} from "../containers/flex/FlexContainer";
 
 export const Header = observer(() => {
   const store = useStore();
-
+  const data = {
+    name: 'coul'
+  }
   return (
     <div className="Header">
       <div className={style.HeaderInterface}>
@@ -28,7 +30,7 @@ export const Header = observer(() => {
         <Logo />
         <FlexContainer alignItems={'center'}>
           <LanguageSwitcher />
-          <LoginButton value={store.dict.header.login} />
+          <LoginButton data={data} value={store.dict.header.login} />
         </FlexContainer>
       </div>
     </div>

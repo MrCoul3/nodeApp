@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 
 interface IProps {
   value: string;
+  data: any;
 }
 
 const styles = {
@@ -14,5 +15,9 @@ const styles = {
 };
 
 export const LoginButton = observer((props: IProps) => {
-  return <Button sx={{ ...styles }}>{props.value}</Button>;
+  const data = props.data
+  function onHandleClick() {
+    console.log(data)
+  }
+  return <Button onClick={onHandleClick} sx={{ ...styles }}>{props.value}</Button>;
 });
