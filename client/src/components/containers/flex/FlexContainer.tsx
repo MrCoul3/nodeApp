@@ -3,12 +3,14 @@ import React from "react";
 interface IProps {
   children?: string | React.ReactNode;
   gap?: string;
+  width?: string;
   jContent?: 'center' | 'flex-end' | 'flex-start';
   alignItems?: 'center' | 'flex-end' | 'flex-start';
   onClick?(): void;
 }
 export const FlexContainer = (props: IProps) => {
   const styles = {
+    width: props.width,
     display: "flex",
     gap: props.gap,
     justifyContent: props.jContent,

@@ -5,7 +5,10 @@ export const en = {
     mainPage: {
         title: 'Main',
     },
-    languageSwither: {
-        lang: 'RUS'
+    navMenu: {
+        about: "About",
+        courses: "Courses",
+        guide: "Guide",
     }
+
 }

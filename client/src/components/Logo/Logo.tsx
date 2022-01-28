@@ -3,7 +3,10 @@ import logoIcon from "../../images/Logo.svg";
 import { Icon } from "../Icon/Icon";
 import style from "./style.module.css";
 
-export const Logo = () => {
+interface IProps {
+    onClick?(): void | undefined
+}
+export const Logo = (props: IProps) => {
   const initState = {
     width: "149px",
     height: "108px",
@@ -24,7 +27,7 @@ export const Logo = () => {
     setState((prevState) => ({ ...prevState, ...initState }));
   }
   return (
-      <div className={style.LogoContainer}>
+      <div onClick={props.onClick} className={style.LogoContainer}>
           <div
               onMouseOver={onMouseOver}
               onMouseOut={onMouseOut}

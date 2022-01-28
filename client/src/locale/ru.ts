@@ -5,7 +5,9 @@ export const ru = {
     mainPage: {
         title: 'Главная',
     },
-    languageSwither: {
-        lang: 'РУС'
+    navMenu: {
+        about: "Об авторе",
+        courses: "Курсы",
+        guide: "Гайд",
     }
 }
