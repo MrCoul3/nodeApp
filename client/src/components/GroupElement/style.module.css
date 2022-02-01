@@ -1,0 +1,14 @@
+.groupAppElement {
+    cursor: pointer;
+}
+.group {
+    font-weight: bold;
+}
+.group:hover {
+    text-decoration: underline;
+}
+
+.groupExpand {
+    padding-left: 20px;
+}
+

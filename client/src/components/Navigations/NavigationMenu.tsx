@@ -4,8 +4,9 @@ import { Button } from "@mui/material";
 import { useStore } from "../../hooks/useStore";
 import { HorizontalLine } from "../Line/HorizontalLine";
 import { useNavigate } from "react-router";
+import {observer} from "mobx-react";
 
-export const NavigationMenu = () => {
+export const NavigationMenu = observer(() => {
   const store = useStore();
   const navigate = useNavigate();
 
@@ -24,4 +25,4 @@ export const NavigationMenu = () => {
       </FlexContainer>
     </>
   );
-};
+});
