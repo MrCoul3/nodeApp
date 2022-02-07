@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import { Button, Menu, MenuItem } from "@mui/material";
 import russianFlag from "../../images/RussianFlag.svg";
 import englishFlag from "../../images/united-kingdom 1.svg";
-import { Icon } from "../Icon/Icon";
+import { IconWithText } from "../Icon/IconWithText";
 import { FlexContainer } from "../containers/flex/FlexContainer";
 import { strings } from "../../locale";
 import { observer } from "mobx-react";
@@ -33,7 +33,7 @@ export const LanguageSwitcher = observer(() => {
   return (
     <div>
       <Button
-        startIcon={<Icon icon={languageIcon.icon} />}
+        startIcon={<IconWithText icon={languageIcon.icon} />}
         size={"large"}
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -54,13 +54,13 @@ export const LanguageSwitcher = observer(() => {
       >
         <MenuItem onClick={() => handleChangeLanguage("ru")}>
           <FlexContainer gap={"5px"}>
-            <Icon icon={russianFlag} />
+            <IconWithText icon={russianFlag} />
             <span>RU</span>
           </FlexContainer>
         </MenuItem>
         <MenuItem onClick={() => handleChangeLanguage("en")}>
           <FlexContainer gap={"5px"}>
-            <Icon icon={englishFlag} />
+            <IconWithText icon={englishFlag} />
             <span>EN</span>
           </FlexContainer>
         </MenuItem>

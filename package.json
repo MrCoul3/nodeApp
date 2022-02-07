@@ -9,6 +9,7 @@
   "author": "MrCoul",
   "license": "ISC",
   "dependencies": {
+    "classnames": "^2.3.1",
     "express": "^4.17.2",
     "mongodb": "^4.3.1",
     "prettier": "^2.5.1",

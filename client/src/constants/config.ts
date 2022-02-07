@@ -19,7 +19,7 @@ export const data = [
     {
         id: "1111",
         name: "group1",
-        description: "группа 1",
+        description: "Группа 1",
         date: "1643621885",
         params: {
             key1: "value1",
@@ -30,7 +30,7 @@ export const data = [
     {
         id: "2222",
         name: "group2",
-        description: "группа 2",
+        description: "Группа 2",
         date: "1654621885",
         params: {
             key1: "value1",

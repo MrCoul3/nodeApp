@@ -1,0 +1,23 @@
+.groupBarElement {
+    cursor: pointer;
+    display: flex;
+    /*font-weight: bold;*/
+    /*margin: 20px 0;*/
+    font-size: 18px;
+    height: 48px;
+}
+
+/*.group:hover {*/
+/*    text-decoration: underline;*/
+/*}*/
+
+.groupExpand {
+    padding-left: 20px;
+}
+
+.selected {
+    background: #EDF7FF;
+    border-radius: 0px 50px 50px 0px;
+    /*width: 181px;*/
+}
+

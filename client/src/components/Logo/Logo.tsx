@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logoIcon from "../../images/Logo.svg";
-import { Icon } from "../Icon/Icon";
+import { IconWithText } from "../Icon/IconWithText";
 import style from "./style.module.css";
 
 interface IProps {
@@ -33,7 +33,7 @@ export const Logo = (props: IProps) => {
               onMouseOut={onMouseOut}
               className={style.Logo}
           >
-              <Icon width={state.width} height={state.height} icon={logoIcon} />
+              <IconWithText width={state.width} height={state.height} icon={logoIcon} />
           </div>
       </div>
 
