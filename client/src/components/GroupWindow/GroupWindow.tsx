@@ -22,21 +22,21 @@ export const GroupWindow = observer(() => {
 
   function renderObjects() {
     return store.groupAppStore.objectIDsList.map((item, i, array) => {
-      const group = store.groupAppStore.groupList.find((g) => item === g.id);
+      const group = store.groupAppStore.groupList.find((g) => item.id === g.id);
       if (group) {
         return (
           <GroupWindowElement
             onDoubleClick={() => onDoubleClick(group)}
             icon={WindowGroupIcon}
-            key={item}
+            key={item.id}
           >
             {group.description}
           </GroupWindowElement>
         );
       } else {
         return (
-          <GroupWindowElement icon={WindowObjectIcon} key={item}>
-            {item}
+          <GroupWindowElement icon={WindowObjectIcon} key={item.id}>
+            {item.object_name}
           </GroupWindowElement>
         );
       }
@@ -55,18 +55,7 @@ export const GroupWindow = observer(() => {
           </div>
           <div className={style.groupWindowBody}>{renderObjects()}</div>
         </>
-      ) : (
-        <div className={style.groupWindowNewGroupWrap}>
-          <div className={style.button}>
-            <div>
-              <Button size={"large"} variant={"contained"} color={"primary"}>
-                <IconWithText width={"24px"} icon={NewGroupIcon} />
-              </Button>
-            </div>
-            <span className={style.buttonDescription}>Создать группу</span>
-          </div>
-        </div>
-      )}
+      ) : null}
     </div>
   );
 });

@@ -5,15 +5,16 @@ import { toJS } from "mobx";
 import style from "./style.module.css";
 import { GroupBarElement } from "../GroupBarElement/GroupBarElement";
 import { IGroupList } from "../../stores/GroupAppStore";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import {InstanceContextMenu} from "../ContextMenu/InstanceContextMenu";
 
 export const GroupBar = observer(() => {
   const store = useStore();
 
   useEffect(() => {
-    // setTimeout(() => console.log(toJS(store.groupAppStore.groupList)), 500);
+
   }, []);
 
-  // const [isSelected, setSelected] = useState<boolean>(false);
 
 
   function onHandleClick(e: any, data: IGroupList) {
@@ -32,7 +33,10 @@ export const GroupBar = observer(() => {
   return (
     <div className={style.groupBar}>
       {store.groupAppStore.groupList.map((item) => (
-        <GroupBarElement
+          <ContextMenuTrigger  id={item.id} >
+          <InstanceContextMenu id={item.id} />
+
+          <GroupBarElement
           onHandleClick={(e: any) => {
             onHandleClick(e, item);
           }}
@@ -40,6 +44,7 @@ export const GroupBar = observer(() => {
           key={item.id}
           description={item.description}
         />
+          </ContextMenuTrigger>
       ))}
     </div>
   );

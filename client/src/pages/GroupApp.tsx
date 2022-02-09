@@ -26,24 +26,13 @@ export const GroupApp = () => {
   }
 
   return (
-    <ContextMenuTrigger  id="same_unique_identifier" >
+    <>
 
-      <ContextMenu  id="same_unique_identifier">
-        <MenuItem data={{foo: 'bar'}} >
-          ContextMenu Item 1
-        </MenuItem>
-        <MenuItem data={{foo: 'bar'}}  >
-          ContextMenu Item 2
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem data={{foo: 'bar'}}  >
-          ContextMenu Item 3
-        </MenuItem>
-      </ContextMenu>
       <FlexContainer gap={"30px"} width={"900px"} height={"600px"}>
         <GroupBar />
         <GroupWindow />
       </FlexContainer>
-    </ContextMenuTrigger>
+    </>
+
   );
 };

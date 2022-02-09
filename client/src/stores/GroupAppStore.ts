@@ -10,10 +10,21 @@ export interface IGroupList {
   selected?: boolean;
 }
 
+export interface IObject {
+  id: string;
+  object_name?: string;
+  object_class?: string;
+  name?: string;
+  description?: string;
+  date?: string;
+  params?: any;
+  selected?: boolean;
+}
+
 export class GroupAppStore {
   groupList: IGroupList[] = [];
   selectedElementData: IGroupList | null = null;
-  objectIDsList: Array<string> = [];
+  objectIDsList: IObject[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -40,7 +51,7 @@ export class GroupAppStore {
     this.selectedElementData = value;
   }
 
-  setObjectIDsList(value: Array<string>) {
+  setObjectIDsList(value: IObject[]) {
     this.objectIDsList = value;
   }
 
