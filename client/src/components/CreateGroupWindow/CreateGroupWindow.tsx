@@ -53,7 +53,7 @@ export const CreateGroupWindow = observer(() => {
 
   function onChange(e: React.ChangeEvent) {
     const target = e.target as HTMLInputElement;
-    const defaultName: string | undefined =s
+    const defaultName: string | undefined =
       store.groupAppStore.selectedGroupElement?.name;
     const defaultDescription: string | undefined =
       store.groupAppStore.selectedGroupElement?.description;

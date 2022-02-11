@@ -15,6 +15,10 @@ export const ROLE_ENDPOINT = `http://accounts.${UPPER_LEVEL_DOMAIN}/jsonrpc/role
 export const OBJECT_ENDPOINT = `http://objects.${UPPER_LEVEL_DOMAIN}/services/object/v2`;
 export const PERMISSIONS_ENDPOINT = `http://permissions.${UPPER_LEVEL_DOMAIN}/jsonrpc/permissions`;
 
+const DOMAIN = "develop-opo";
+// export const GROUPS_APP_ENDPOINT = `http://vms-groups.${UPPER_LEVEL_DOMAIN}/jsonrpc/service`;
+export const GROUPS_APP_ENDPOINT = `http://vms-groups.${DOMAIN}/jsonrpc/service`;
+
 export const data = [
   {
     id: "1111",

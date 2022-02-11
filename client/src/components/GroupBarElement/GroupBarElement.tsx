@@ -62,7 +62,7 @@ export const GroupBarElement = observer((props: IProps) => {
           height={"20"}
           fill={props.inputData.selected ? "#fff" : "black"}
         />
-        <div>{props.inputData.description}</div>
+        <div>{props.inputData.name}</div>
       </div>
       {expanded ? (
         <div className={style.groupExpand}>{renderExpanded()}</div>

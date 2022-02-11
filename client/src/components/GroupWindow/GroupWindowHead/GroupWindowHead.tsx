@@ -52,7 +52,7 @@ export const GroupWindowHead = observer(() => {
       <FlexContainer padding={"3px 0"} jContent={"space-between"}>
         <FlexContainer gap={"10px"} alignItems={"center"}>
           {/*<GroupIcon width={'32px'} fill={'#428BCA'} />*/}
-          <span>{store.groupAppStore.selectedGroupElement?.description}</span>
+          <span>{store.groupAppStore.selectedGroupElement?.name}</span>
         </FlexContainer>
 
         <FlexContainer gap={"15px"}>
