@@ -6,56 +6,70 @@ import WindowGroupIcon from "../../images/groupIcons/windowGroupIcon.svg";
 import WindowObjectIcon from "../../images/groupIcons/windowObjectIcon.svg";
 import style from "./style.module.css";
 import { observer } from "mobx-react";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import NewGroupIcon from "../../images/groupIcons/newGroup.svg";
-import { GroupWindowElement } from "../GroupWindowElement/GroupWindowElement";
+import { GroupWindowElement } from "./GroupWindowElement/GroupWindowElement";
 import { IGroupList } from "../../stores/GroupAppStore";
+import { InfoButtonIcon } from "../../icons/InfoButtonIcon";
+import { FlexContainer } from "../containers/flex/FlexContainer";
+import { GroupWindowHead } from "./GroupWindowHead/GroupWindowHead";
 
 export const GroupWindow = observer(() => {
   const store = useStore();
 
-  function onDoubleClick(data: IGroupList) {
-    store.groupAppStore.setSelectedElementData(data);
-    store.groupAppStore.fetchObjectsIDsList(data.id);
-    store.groupAppStore.setSelectedGroup(data.id)
-  }
-
   function renderObjects() {
-    return store.groupAppStore.objectIDsList.map((item, i, array) => {
-      const group = store.groupAppStore.groupList.find((g) => item.id === g.id);
+    return store.groupAppStore.objectIDsList.map((object, i, array) => {
+      const group = store.groupAppStore.groupList.find(
+        (group) => object.id === group.id
+      );
       if (group) {
         return (
           <GroupWindowElement
-            onDoubleClick={() => onDoubleClick(group)}
+            inputData={group}
             icon={WindowGroupIcon}
-            key={item.id}
+            key={object.id}
           >
             {group.description}
           </GroupWindowElement>
         );
       } else {
         return (
-          <GroupWindowElement icon={WindowObjectIcon} key={item.id}>
-            {item.object_name}
+          <GroupWindowElement
+            inputData={object}
+            icon={WindowObjectIcon}
+            key={object.id}
+          >
+            {object.object_name}
           </GroupWindowElement>
         );
       }
     });
   }
 
+  function renderGroups() {
+    return store.groupAppStore.groupList.map((group) => {
+      return (
+        <GroupWindowElement
+          inputData={group}
+          icon={WindowGroupIcon}
+          key={group.id ? group.id : ''}
+        >
+          {group.description}
+        </GroupWindowElement>
+      );
+    });
+  }
+
   return (
     <div className={style.groupWindow}>
-      {store.groupAppStore.selectedElementData ? (
+      <GroupWindowHead />
+      {store.groupAppStore.selectedGroupElement ? (
         <>
-          <div className={style.groupWindowHead}>
-            <IconWithText
-              icon={GroupIcon}
-              text={store.groupAppStore.selectedElementData?.description}
-            />
-          </div>
           <div className={style.groupWindowBody}>{renderObjects()}</div>
         </>
-      ) : null}
+      ) : (
+        <div className={style.groupWindowBody}>{renderGroups()}</div>
+      )}
     </div>
   );
 });

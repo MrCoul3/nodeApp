@@ -1,10 +1,17 @@
+.groupBarElementWrap {
+    margin: 7px 0;
+}
 .groupBarElement {
     cursor: pointer;
     display: flex;
+    align-items: center;
     /*font-weight: bold;*/
     /*margin: 20px 0;*/
-    font-size: 18px;
-    height: 48px;
+    padding-left: 10px;
+    font-size: 16px;
+    /*flex-direction: column;*/
+    height: 40px;
+    gap: 5px;
 }
 
 /*.group:hover {*/
@@ -16,8 +23,12 @@
 }
 
 .selected {
-    background: #EDF7FF;
-    border-radius: 0px 50px 50px 0px;
-    /*width: 181px;*/
+    color: #fff;
+    /*background: #428BCA;*/
+    background: #1976d2;
+    /*border-radius: 0px 50px 50px 0px;*/
+    border-radius: 50px;
+    width: 110px;
 }
+
 

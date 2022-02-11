@@ -1,51 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { useStore } from "../../hooks/useStore";
 import { observer } from "mobx-react";
-import { toJS } from "mobx";
+
 import style from "./style.module.css";
 import { GroupBarElement } from "../GroupBarElement/GroupBarElement";
-import { IGroupList } from "../../stores/GroupAppStore";
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-import {InstanceContextMenu} from "../ContextMenu/InstanceContextMenu";
+import { Button } from "@mui/material";
+import { CreateGroupIcon } from "../../icons/CreateGroupIcon";
+import { CreateGroupWindow } from "../CreateGroupWindow/CreateGroupWindow";
 
 export const GroupBar = observer(() => {
   const store = useStore();
 
-  useEffect(() => {
+  useEffect(() => {}, []);
 
-  }, []);
+  // const [isCreatedMode, setCreatedMode] = useState<boolean>(false);
 
-
-
-  function onHandleClick(e: any, data: IGroupList) {
-   /* const groupBarElements = document.querySelectorAll(".groupBarElement");
-    groupBarElements.forEach((value) => {
-      value.classList.remove("selected");
-    });
-    e.target.closest(".groupBarElement").classList.add("selected");*/
-
-    store.groupAppStore.fetchObjectsIDsList(data.id);
-    store.groupAppStore.setSelectedElementData(data);
-    store.groupAppStore.setSelectedGroup(data.id)
-
+  function onHandleClick() {
+    store.groupAppStore.setCreatedMode(true);
+    store.groupAppStore.setIsRootDirectory(true);
   }
 
   return (
     <div className={style.groupBar}>
-      {store.groupAppStore.groupList.map((item) => (
-          <ContextMenuTrigger  id={item.id} >
-          <InstanceContextMenu id={item.id} />
-
-          <GroupBarElement
-          onHandleClick={(e: any) => {
-            onHandleClick(e, item);
-          }}
-          selected={item.selected}
-          key={item.id}
-          description={item.description}
-        />
-          </ContextMenuTrigger>
-      ))}
+      <div className={style.groupBarElements}>
+        {store.groupAppStore.groupList.map((groupList) => (
+          <GroupBarElement key={groupList.id} inputData={groupList} />
+        ))}
+      </div>
+      <div className={style.button}>
+        <Button
+          onClick={onHandleClick}
+          title={"Создать группу в корневом каталоге"}
+          startIcon={
+            <CreateGroupIcon width={"20px"} height={"20px"} fill={"white"} />
+          }
+          variant="contained"
+          color="primary"
+          value="new_group"
+        >
+          <span className={style.buttonText}>Новая группа</span>
+        </Button>
+      </div>
+      {store.groupAppStore.isCreatedMode || store.groupAppStore.isEditMode ? (
+        <CreateGroupWindow />
+      ) : null}
     </div>
   );
 });

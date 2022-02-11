@@ -1,77 +1,72 @@
 import React, { useState } from "react";
 import { useStore } from "../../hooks/useStore";
-import { IGroupList } from "../../stores/GroupAppStore";
+import { IGroupList, IObject } from "../../stores/GroupAppStore";
 import style from "./style.module.css";
 import { toJS } from "mobx";
-import { ObjectElement } from "../ObjectElement/ObjectElement";
-import GroupIcon from "../../images/groupIcons/group.svg";
 import { IconWithText } from "../Icon/IconWithText";
 import classNames from "classnames";
+import { observer } from "mobx-react";
+import { GroupIcon } from "../../icons/GroupIcon";
 
 type IProps = {
-  selected?:boolean;
-  description: string;
-  onHandleClick?(e: any): void;
+  inputData: IGroupList;
+  // selected?: boolean;
+  // description?: string;
+  // onHandleClick?(e: any): void;
 };
 
-export const GroupBarElement = (props: IProps) => {
-  // const [expanded, setExpanded] = useState<boolean>(false);
+export const GroupBarElement = observer((props: IProps) => {
+  const store = useStore();
 
-  /*  function sortObjectList() {
-    return store.groupAppStore.objectIDsList.map((obj, i, array) => {
-      store.groupAppStore.groupList.forEach((g) => {
-        if (g.id === obj) {
-          array.splice(i, 1);
-          array.unshift(obj);
-        }
-      });
-    });
-  }*/
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [objectList, setObjectList] = useState<any>([]);
 
-  /* function onHandleClick(event: React.MouseEvent) {
+  function onHandleClick(event: React.MouseEvent) {
     event.stopPropagation();
-    // store.groupAppStore.fetchObjectsIDsList(props.inputData.id);
-    // store.groupAppStore.setSelectedElementData(props.inputData);
-    // expanded ? setExpanded(false) : setExpanded(true);
-    // sortObjectList();
-    console.log(toJS(store.groupAppStore.objectIDsList));
-    console.log(
-      "store.groupAppStore.selectedElementData",
-      toJS(store.groupAppStore.selectedElementData)
-    );
-  }*/
 
-  /*  function renderExpanded() {
-    return store.groupAppStore.objectIDsList.map((item, i, array) => {
-      const group = store.groupAppStore.groupList.find((g) => item === g.id);
+    store.groupAppStore.fetchObjectsIDsList(props.inputData.id);
+    setObjectList(store.groupAppStore.objectIDsList);
+    store.groupAppStore.setSelectedGroupElement(props.inputData);
+    expanded ? setExpanded(false) : setExpanded(true);
+  }
+
+  function renderExpanded() {
+    return objectList.map((objectList: IObject) => {
+      const group = store.groupAppStore.groupList.find(
+        (groupList) => objectList.id === groupList.id
+      );
       if (group) {
-        return <GroupBarElement key={item} inputData={group} />;
-      } else {
-        return <ObjectElement key={item} inputData={item} />;
+        return (
+          <div key={objectList.id}>
+            <GroupBarElement inputData={group} />
+          </div>
+        );
       }
     });
-  }*/
+  }
+
   function isSelected() {
-    if (props.selected) {
-      return style.selected
+    if (props.inputData.selected) {
+      return style.selected;
     }
   }
 
   return (
-    <div
-      className={classNames(style.groupBarElement, isSelected())}
-      onClick={props.onHandleClick}
-    >
-      <IconWithText
-        margin={"0 0 0 10px"}
-        width={"21px"}
-        icon={GroupIcon}
-        text={props.description}
-      />
-      {/*<div className={style.group}>{props.inputData.description}</div>*/}
-      {/*<div className={style.groupExpand}>*/}
-      {/*  {expanded ? renderExpanded() : ""}*/}
-      {/*</div>*/}
+    <div className={style.groupBarElementWrap}>
+      <div
+        className={classNames(style.groupBarElement, isSelected())}
+        onClick={onHandleClick}
+      >
+        <GroupIcon
+          width={"20"}
+          height={"20"}
+          fill={props.inputData.selected ? "#fff" : "black"}
+        />
+        <div>{props.inputData.description}</div>
+      </div>
+      {expanded ? (
+        <div className={style.groupExpand}>{renderExpanded()}</div>
+      ) : null}
     </div>
   );
-};
+});

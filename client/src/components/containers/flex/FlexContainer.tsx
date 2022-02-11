@@ -6,7 +6,7 @@ interface IProps {
   padding?:string;
   width?: string;
   height?: string;
-  jContent?: 'center' | 'flex-end' | 'flex-start';
+  jContent?: 'center' | 'flex-end' | 'flex-start' | 'space-between';
   alignItems?: 'center' | 'flex-end' | 'flex-start';
   onClick?(): void;
 }
@@ -22,7 +22,7 @@ export const FlexContainer = (props: IProps) => {
   };
 
   return (
-    <div onClick={props.onClick} style={{ ...styles }}>
+    <div onClick={props.onClick} style={{ ...styles}}>
       {props.children}
     </div>
   );

@@ -7,9 +7,10 @@ export const IconWithText = (props: {
   height?: string;
   text?: string;
   margin?: string;
+  fontSize?: string;
 }) => {
   return (
-    <div className={style.iconWrapper}>
+    <div  style={{fontSize: props.fontSize}} className={style.iconWrapper}>
       <img
         className={style.img}
         style={{ width: props.width, height: props.height, margin: props.margin }}

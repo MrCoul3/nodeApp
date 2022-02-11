@@ -38,6 +38,17 @@ export const data = [
       key3: "value3",
     },
   },
+  {
+    id: "3333",
+    name: "group3",
+    description: "Группа 3",
+    date: "1643621885",
+    params: {
+      key1: "value1",
+      key2: "value2",
+      key3: "value3",
+    },
+  },
 ];
 
 export const objectIDsList = [
@@ -58,6 +69,17 @@ export const objectIDsList = [
     },
   },
   {
+    id: "3333",
+    name: "group3",
+    description: "Группа 3",
+    date: "1643621885",
+    params: {
+      key1: "value1",
+      key2: "value2",
+      key3: "value3",
+    },
+  },
+  {
     id: "o3333",
     object_name: "Объект 3",
     object_class: "Класс объекта ",
@@ -70,14 +92,25 @@ export const objectIDsList = [
 ];
 export const objectIDsList2 = [
   {
-    id: "o999",
-    object_name: "Объект 9",
+    id: "o42341111",
+    object_name: "Объект 92",
     object_class: "Класс объекта ",
   },
   {
     id: "o5555",
     object_name: "Объект 5",
     object_class: "Класс объекта ",
+  },
+  {
+    id: "3333",
+    name: "group3",
+    description: "Группа 3",
+    date: "1643621885",
+    params: {
+      key1: "value1",
+      key2: "value2",
+      key3: "value3",
+    },
   },
   {
     id: "o4444",
@@ -89,4 +122,28 @@ export const objectIDsList2 = [
     object_name: "Объект 3",
     object_class: "Класс объекта ",
   },
+];
+
+export const objectIDsList3 = [
+  {
+    id: "o3452",
+    object_name: "Объект 39",
+    object_class: "Класс объекта ",
+  },
+  {
+    id: "o5555345",
+    object_name: "Объект 53",
+    object_class: "Класс объекта ",
+  },
+  {
+    id: "o4412312344",
+    object_name: "Объект 43",
+    object_class: "Класс объекта ",
+  },
+  {
+    id: "o3321233",
+    object_name: "Объект 23",
+    object_class: "Класс объекта ",
+  },
+
 ];
