@@ -22,8 +22,12 @@ import { AddObjectToGroupIcon } from "../../../icons/AddObjectToGroupIcon";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { toJS } from "mobx";
 export const GroupWindowHead = observer(() => {
   const store = useStore();
+
+  const [isDeleteGroup, setIsDeleteGroup] = useState<boolean>(false);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -47,22 +51,65 @@ export const GroupWindowHead = observer(() => {
     setOpen(false);
   };
 
+  function deleteGroup() {
+    store.groupAppStore.deleteGroup(
+      store.groupAppStore.selectedGroupElement?.id
+    );
+    store.groupAppStore.locallyDeleteGroup(
+      store.groupAppStore.selectedGroupElement?.id
+    );
+    store.groupAppStore.setSelectedGroupElement(null);
+    handleClose();
+  }
+
+  function deleteGroupContent() {
+    const deleteData = {
+      group_id: store.groupAppStore.selectedGroupElement?.id,
+      object_ids: store.groupAppStore.selectedElementsIDs,
+    };
+    store.groupAppStore.deleteGroupContent(deleteData);
+    deleteData.object_ids.forEach((id) => {
+      const deletedGroup = store.groupAppStore.groupList.find(
+        (group) => group.id === id
+      );
+      store.groupAppStore.deleteGroup(deletedGroup?.id);
+    });
+    store.groupAppStore.locallyDeleteGroupContent(deleteData.object_ids);
+
+    handleClose();
+  }
+
   return (
     <div className={style.groupWindowHead}>
       <FlexContainer padding={"3px 0"} jContent={"space-between"}>
         <FlexContainer gap={"10px"} alignItems={"center"}>
           {/*<GroupIcon width={'32px'} fill={'#428BCA'} />*/}
-          <span>{store.groupAppStore.selectedGroupElement?.name}</span>
+          <span>{store.groupAppStore.selectedGroupElement ? store.groupAppStore.selectedGroupElement?.name : "Список групп"}</span>
         </FlexContainer>
 
         <FlexContainer gap={"15px"}>
-          <div title={"Изменить вид"} className={style.viewIcon}>
-            <IconButton
-            // onClick={}
+          {store.groupAppStore.selectedElementsIDs.length > 0 ? (
+            <Button
+              onClick={() => {
+                setIsDeleteGroup(false);
+                handleClickOpen();
+              }}
+              title={"Удалить выбранные"}
+              variant="contained"
+              color="primary"
+              value="add_button"
             >
-              <GridViewOutlinedIcon />
-            </IconButton>
-          </div>
+              {<DeleteOutlinedIcon />}
+            </Button>
+          ) : null}
+
+          {/*<div title={"Изменить вид"} className={style.viewIcon}>*/}
+          {/*  <IconButton*/}
+          {/*  // onClick={}*/}
+          {/*  >*/}
+          {/*    <GridViewOutlinedIcon />*/}
+          {/*  </IconButton>*/}
+          {/*</div>*/}
 
           <Button
             onClick={() => store.groupAppStore.setCreatedMode(true)}
@@ -116,6 +163,7 @@ export const GroupWindowHead = observer(() => {
 
         <MenuItem
           onClick={() => {
+            setIsDeleteGroup(true);
             handleContextMenuClose();
             handleClickOpen();
           }}
@@ -126,6 +174,20 @@ export const GroupWindowHead = observer(() => {
           </FlexContainer>
         </MenuItem>
 
+        {store.groupAppStore.selectedElementsIDs.length > 0 ? (
+          <MenuItem
+            onClick={() => {
+              setIsDeleteGroup(false);
+              handleContextMenuClose();
+              handleClickOpen();
+            }}
+          >
+            <FlexContainer gap={"10px"}>
+              <DeleteGroupIcon width={"24px"} fill={"#767676"} />
+              <span>Удалить выбранные</span>
+            </FlexContainer>
+          </MenuItem>
+        ) : null}
         <MenuItem
           onClick={() => {
             handleContextMenuClose();
@@ -147,6 +209,7 @@ export const GroupWindowHead = observer(() => {
           </FlexContainer>
         </MenuItem>
       </Menu>
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -154,22 +217,23 @@ export const GroupWindowHead = observer(() => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Вы уверены, что хотите удалить группу?"}
+          {isDeleteGroup
+            ? "Вы уверены, что хотите удалить группу?"
+            : "Удалить выбранные объекты?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            После удаления отменить действие будет невозможно
+            {store.groupAppStore.objectIDsList.length > 0
+              ? "В группе содержаться объекты. После удаления отменить действие будет невозможно"
+              : "После удаления отменить действие будет невозможно"}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Отменить</Button>
           <Button
-            onClick={() => {
-              handleClose();
-              store.groupAppStore.deleteGroup(
-                store.groupAppStore.selectedGroupElement?.id
-              );
-            }}
+            onClick={() =>
+              isDeleteGroup ? deleteGroup() : deleteGroupContent()
+            }
             autoFocus
           >
             Удалить

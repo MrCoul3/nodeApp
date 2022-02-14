@@ -13,28 +13,38 @@ import { IGroupList } from "../../stores/GroupAppStore";
 import { InfoButtonIcon } from "../../icons/InfoButtonIcon";
 import { FlexContainer } from "../containers/flex/FlexContainer";
 import { GroupWindowHead } from "./GroupWindowHead/GroupWindowHead";
+import { GroupBarElement } from "../GroupBarElement/GroupBarElement";
+import { toJS } from "mobx";
 
 export const GroupWindow = observer(() => {
   const store = useStore();
 
   function renderObjects() {
+    console.log(
+      "store.groupAppStore.objectIDsList",
+      toJS(store.groupAppStore.objectIDsList)
+    );
+
     return store.groupAppStore.objectIDsList.map((object, i, array) => {
       const group = store.groupAppStore.groupList.find(
         (group) => object.id === group.id
       );
+
       if (group) {
         return (
           <GroupWindowElement
+            isCheckAble={true}
             inputData={group}
             icon={WindowGroupIcon}
-            key={object.id}
+            key={group.id}
           >
-            {group.description}
+            {group.name}
           </GroupWindowElement>
         );
       } else {
         return (
           <GroupWindowElement
+            isCheckAble={true}
             inputData={object}
             icon={WindowObjectIcon}
             key={object.id}
@@ -46,17 +56,23 @@ export const GroupWindow = observer(() => {
     });
   }
 
-  function renderGroups() {
+  function renderGroupsInStartWindow() {
     return store.groupAppStore.groupList.map((group) => {
-      return (
-        <GroupWindowElement
-          inputData={group}
-          icon={WindowGroupIcon}
-          key={group.id ? group.id : ''}
-        >
-          {group.description}
-        </GroupWindowElement>
+      const rootGroup = store.groupAppStore.allGroups.find(
+        (rootGroup) => rootGroup.id === group.id
       );
+      if (rootGroup) {
+        return (
+          <GroupWindowElement
+            isCheckAble={false}
+            inputData={group}
+            icon={WindowGroupIcon}
+            key={group.id ? group.id : ""}
+          >
+            {group.name}
+          </GroupWindowElement>
+        );
+      }
     });
   }
 
@@ -65,10 +81,18 @@ export const GroupWindow = observer(() => {
       <GroupWindowHead />
       {store.groupAppStore.selectedGroupElement ? (
         <>
-          <div className={style.groupWindowBody}>{renderObjects()}</div>
+          <div className={style.groupWindowBody}>
+            {store.groupAppStore.objectIDsList.length ? (
+              renderObjects()
+            ) : (
+              <div className={style.emptyText}><span>В выбранной группе нет содержимого</span></div>
+            )}
+          </div>
         </>
       ) : (
-        <div className={style.groupWindowBody}>{renderGroups()}</div>
+        <div className={style.groupWindowBody}>
+          {renderGroupsInStartWindow()}
+        </div>
       )}
     </div>
   );

@@ -13,8 +13,6 @@ export const GroupBar = observer(() => {
 
   useEffect(() => {}, []);
 
-  // const [isCreatedMode, setCreatedMode] = useState<boolean>(false);
-
   function onHandleClick() {
     store.groupAppStore.setCreatedMode(true);
     store.groupAppStore.setIsRootDirectory(true);
@@ -23,9 +21,14 @@ export const GroupBar = observer(() => {
   return (
     <div className={style.groupBar}>
       <div className={style.groupBarElements}>
-        {store.groupAppStore.groupList.map((groupList) => (
-          <GroupBarElement key={groupList.id} inputData={groupList} />
-        ))}
+        {store.groupAppStore.groupList.map((groupList) => {
+          const rootGroup = store.groupAppStore.allGroups.find(
+            (rootGroup) => rootGroup.id === groupList.id
+          );
+          if (rootGroup) {
+            return <GroupBarElement key={groupList.id} inputData={groupList} />;
+          }
+        })}
       </div>
       <div className={style.button}>
         <Button

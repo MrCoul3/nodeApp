@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "../../hooks/useStore";
 import { IGroupList, IObject } from "../../stores/GroupAppStore";
 import style from "./style.module.css";
@@ -7,6 +7,7 @@ import { IconWithText } from "../Icon/IconWithText";
 import classNames from "classnames";
 import { observer } from "mobx-react";
 import { GroupIcon } from "../../icons/GroupIcon";
+import { data } from "../../constants/config";
 
 type IProps = {
   inputData: IGroupList;
@@ -21,14 +22,23 @@ export const GroupBarElement = observer((props: IProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [objectList, setObjectList] = useState<any>([]);
 
-  function onHandleClick(event: React.MouseEvent) {
-    event.stopPropagation();
-
-    store.groupAppStore.fetchObjectsIDsList(props.inputData.id);
-    setObjectList(store.groupAppStore.objectIDsList);
+  async function onHandleClick() {
     store.groupAppStore.setSelectedGroupElement(props.inputData);
-    expanded ? setExpanded(false) : setExpanded(true);
+    if (expanded) {
+      setExpanded(false);
+    } else {
+      setExpanded(true);
+    }
+    store.groupAppStore
+      .fetchObjectsForGroupID(props.inputData.id)
+      .then((data) => setObjectList(data));
   }
+
+  useEffect(() => {
+    if (props.inputData.id === store.groupAppStore.selectedGroupElement?.id) {
+      setObjectList(store.groupAppStore.objectIDsList)
+    }
+  }, [store.groupAppStore.objectIDsList])
 
   function renderExpanded() {
     return objectList.map((objectList: IObject) => {
@@ -37,7 +47,7 @@ export const GroupBarElement = observer((props: IProps) => {
       );
       if (group) {
         return (
-          <div key={objectList.id}>
+          <div key={group.id}>
             <GroupBarElement inputData={group} />
           </div>
         );
@@ -57,11 +67,14 @@ export const GroupBarElement = observer((props: IProps) => {
         className={classNames(style.groupBarElement, isSelected())}
         onClick={onHandleClick}
       >
-        <GroupIcon
-          width={"20"}
-          height={"20"}
-          fill={props.inputData.selected ? "#fff" : "black"}
-        />
+        <div className={style.icon}>
+          <GroupIcon
+              width={"20"}
+              height={"20"}
+              fill={props.inputData.selected ? "#fff" : "black"}
+          />
+        </div>
+
         <div>{props.inputData.name}</div>
       </div>
       {expanded ? (

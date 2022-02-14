@@ -1,5 +1,6 @@
 .groupBarElementWrap {
     margin: 7px 0;
+    white-space: nowrap;
 }
 .groupBarElement {
     cursor: pointer;
@@ -28,7 +29,12 @@
     background: #1976d2;
     /*border-radius: 0px 50px 50px 0px;*/
     border-radius: 50px;
-    width: 110px;
+    /*width: 110px;*/
+    width: auto;
+}
+
+.icon {
+    width: 20px;
 }
 
 

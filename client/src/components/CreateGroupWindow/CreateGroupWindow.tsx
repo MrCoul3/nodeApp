@@ -20,6 +20,7 @@ export interface IFieldsValue {
   id?: string | undefined;
   name: string | undefined;
   description: string | undefined;
+  group_id?: string;
 }
 
 export const CreateGroupWindow = observer(() => {
@@ -28,35 +29,58 @@ export const CreateGroupWindow = observer(() => {
   const [count, setCount] = useState<number>(0);
 
   const [fieldsValue, setFieldsValue] = useState<IFieldsValue>({
-    name: "",
-    description: "",
+    name: store.groupAppStore.isEditMode
+      ? store.groupAppStore.selectedGroupElement?.name
+      : "",
+    description: store.groupAppStore.isEditMode
+      ? store.groupAppStore.selectedGroupElement?.description
+      : "",
   });
 
   async function createGroup() {
     const values: IFieldsValue = { ...fieldsValue };
-    const createdGroupID: any = await store.groupAppStore.createGroup(values);
+    const createdGroupID: string | undefined =
+      await store.groupAppStore.createGroup(values);
     const createdGroupData = { ...fieldsValue, id: createdGroupID };
 
     if (store.groupAppStore.isRootDirectory) {
       await store.groupAppStore.localyUpdateGroupList(createdGroupData);
       await store.groupAppStore.setSelectedGroupElement(createdGroupData); // для перехода в текущую группу
     } else {
-      // await store.groupAppStore.createGroupInGroup(values);
-    }
+      const selectedGroupID = store.groupAppStore.selectedGroupElement?.id;
+      const createdGroupInOtherGroupData = {
+        group_id: selectedGroupID,
+        ...createdGroupData,
+      };
+      await store.groupAppStore.addGroupContent(createdGroupInOtherGroupData);
+      await store.groupAppStore.localyUpdateGroupList(createdGroupData);
+      await store.groupAppStore.fetchObjectsForGroupID(selectedGroupID)
 
-    // после создания группы нужно сделать запрос на апи по имени группы , получить данные новой группы вместе с id
-    // и добавить данные в setSelectedGroupElement() и groupList
-    // const createdGroup: any = await store.groupAppStore.getGroupByID(createdGroupID); // : IGroupList
+      // пр добавлении группы в группу локально отображать измененния
+      // await store.groupAppStore.fetchObjectsForGroupID(selectedGroupID);
+      // await store.groupAppStore.setSelectedGroupElement(createdGroupData);
+    }
 
     await store.groupAppStore.closeCreateEditGroupWindow();
   }
 
+  async function updateGroup() {
+    const updatedGroupID: string | undefined =
+      store.groupAppStore.selectedGroupElement?.id;
+    const updatedGroupData = { ...fieldsValue, id: updatedGroupID };
+    store.groupAppStore.updateGroup(updatedGroupData);
+    store.groupAppStore.localyUpdateGroupList(updatedGroupData);
+    store.groupAppStore.closeCreateEditGroupWindow();
+  }
+
   function onChange(e: React.ChangeEvent) {
     const target = e.target as HTMLInputElement;
-    const defaultName: string | undefined =
-      store.groupAppStore.selectedGroupElement?.name;
-    const defaultDescription: string | undefined =
-      store.groupAppStore.selectedGroupElement?.description;
+
+    // const defaultName: string | undefined =
+    //   store.groupAppStore.selectedGroupElement?.name;
+    // const defaultDescription: string | undefined =
+    //   store.groupAppStore.selectedGroupElement?.description;
+
     if (e.target.getAttribute("name") === "name") {
       setFieldsValue((prevState: IFieldsValue) => {
         return {
@@ -65,12 +89,12 @@ export const CreateGroupWindow = observer(() => {
         };
       });
     } else {
-      setFieldsValue((prevState: IFieldsValue) => {
-        return {
-          ...prevState,
-          name: defaultName,
-        };
-      });
+      // setFieldsValue((prevState: IFieldsValue) => {
+      //   return {
+      //     ...prevState,
+      //     name: defaultName,
+      //   };
+      // });
     }
 
     if (e.target.getAttribute("name") === "description") {
@@ -81,17 +105,17 @@ export const CreateGroupWindow = observer(() => {
         };
       });
     } else {
-      setFieldsValue((prevState: IFieldsValue) => {
-        return {
-          ...prevState,
-          description: defaultDescription,
-        };
-      });
+      // setFieldsValue((prevState: IFieldsValue) => {
+      //   return {
+      //     ...prevState,
+      //     description: defaultDescription,
+      //   };
+      // });
     }
   }
-  // useEffect(()=> {
-  //   console.log('fieldsValue', fieldsValue)
-  // }, [fieldsValue])
+  useEffect(() => {
+    console.log("fieldsValue", fieldsValue);
+  }, [fieldsValue]);
 
   function onDelete(field: ReactNode) {}
 
@@ -189,14 +213,7 @@ export const CreateGroupWindow = observer(() => {
           {store.groupAppStore.isCreatedMode ? (
             <Button onClick={createGroup}>Создать</Button>
           ) : (
-            <Button
-              onClick={() => {
-                store.groupAppStore.updateGroup({ ...fieldsValue });
-                store.groupAppStore.closeCreateEditGroupWindow();
-              }}
-            >
-              Изменить
-            </Button>
+            <Button onClick={updateGroup}>Изменить</Button>
           )}
         </FlexContainer>
       </footer>

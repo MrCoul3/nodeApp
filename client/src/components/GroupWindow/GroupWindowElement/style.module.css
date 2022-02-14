@@ -35,6 +35,10 @@
     top: -7px;
 }
 
+.unCheckAble {
+    display: none;
+}
+
 .checkBoxChecked {
     display: block;
 }

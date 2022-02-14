@@ -15,6 +15,7 @@ interface IProps {
   children?: string | React.ReactNode;
   icon?: string | undefined;
   inputData?: IWindowElement;
+  isCheckAble: boolean;
 }
 
 export const GroupWindowElement = observer((props: IProps) => {
@@ -41,7 +42,7 @@ export const GroupWindowElement = observer((props: IProps) => {
       if (props.inputData && props.inputData.name) {
         if (!store.groupAppStore.selectedElementsIDs.length) {
           store.groupAppStore.setSelectedGroupElement(props.inputData);
-          store.groupAppStore.fetchObjectsIDsList(props.inputData.id);
+          store.groupAppStore.fetchObjectsForGroupID(props.inputData.id);
         } else {
           setSelectionList();
         }
@@ -79,9 +80,10 @@ export const GroupWindowElement = observer((props: IProps) => {
       >
         <div
           className={
-            checked
+            props.isCheckAble ?
+            (checked
               ? classNames(style.checkBoxChecked, style.checkBox)
-              : style.checkBox
+              : style.checkBox) : style.unCheckAble
           }
         >
           <Checkbox

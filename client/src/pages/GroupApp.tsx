@@ -3,12 +3,14 @@ import { GroupBar } from "../components/GroupBar/GroupBar";
 import { GroupWindow } from "../components/GroupWindow/GroupWindow";
 import { FlexContainer } from "../components/containers/flex/FlexContainer";
 import { useStore } from "../hooks/useStore";
+import {observer} from "mobx-react";
 
-export const GroupApp = () => {
+export const GroupApp = observer(() => {
   const store = useStore();
 
   const init = async () => {
-    await store.groupAppStore.fetchGroupList();
+      store.groupAppStore.fetchGroupList();
+      store.groupAppStore.fetchAllGroups()
   };
 
   useEffect(() => {
@@ -28,4 +30,4 @@ export const GroupApp = () => {
       </FlexContainer>
     </div>
   );
-};
+});
