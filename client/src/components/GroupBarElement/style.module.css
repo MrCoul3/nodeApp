@@ -9,6 +9,7 @@
     /*font-weight: bold;*/
     /*margin: 20px 0;*/
     padding-left: 10px;
+    padding-right: 10px;
     font-size: 16px;
     /*flex-direction: column;*/
     height: 40px;
@@ -36,5 +37,9 @@
 .icon {
     width: 20px;
 }
-
+.groupBarElementText {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 

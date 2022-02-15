@@ -24,12 +24,14 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { toJS } from "mobx";
+import { InformationFrame } from "../../InformationFrame/InformationFrame";
 export const GroupWindowHead = observer(() => {
   const store = useStore();
 
   const [isDeleteGroup, setIsDeleteGroup] = useState<boolean>(false);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [showInfoFrame, setShowInfoFrame] = React.useState<boolean>(false);
 
   const handleContextMenuOpen = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -84,7 +86,14 @@ export const GroupWindowHead = observer(() => {
       <FlexContainer padding={"3px 0"} jContent={"space-between"}>
         <FlexContainer gap={"10px"} alignItems={"center"}>
           {/*<GroupIcon width={'32px'} fill={'#428BCA'} />*/}
-          <span>{store.groupAppStore.selectedGroupElement ? store.groupAppStore.selectedGroupElement?.name : "Список групп"}</span>
+          <span
+            title={store.groupAppStore.selectedGroupElement?.name}
+            className={style.groupHeaderName}
+          >
+            {store.groupAppStore.selectedGroupElement
+              ? store.groupAppStore.selectedGroupElement?.name
+              : "Список групп"}
+          </span>
         </FlexContainer>
 
         <FlexContainer gap={"15px"}>
@@ -125,7 +134,7 @@ export const GroupWindowHead = observer(() => {
               <MoreVertIcon />
             </IconButton>
           ) : (
-            <div></div>
+            <div />
           )}
         </FlexContainer>
       </FlexContainer>
@@ -188,8 +197,10 @@ export const GroupWindowHead = observer(() => {
             </FlexContainer>
           </MenuItem>
         ) : null}
+
         <MenuItem
           onClick={() => {
+            setShowInfoFrame(true)
             handleContextMenuClose();
           }}
         >
@@ -198,6 +209,7 @@ export const GroupWindowHead = observer(() => {
             <span>Информация</span>
           </FlexContainer>
         </MenuItem>
+
         <MenuItem
           onClick={() => {
             handleContextMenuClose();
@@ -240,6 +252,7 @@ export const GroupWindowHead = observer(() => {
           </Button>
         </DialogActions>
       </Dialog>
+      {showInfoFrame ? <InformationFrame onClick={()=> setShowInfoFrame(false)} /> : null}
     </div>
   );
 });

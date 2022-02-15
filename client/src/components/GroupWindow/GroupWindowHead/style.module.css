@@ -13,3 +13,8 @@
     border-radius: 10px;
     box-sizing: border-box;
 }
+.groupHeaderName {
+    width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

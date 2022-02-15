@@ -150,7 +150,7 @@ export const CreateGroupWindow = observer(() => {
 
   return (
     <div className={style.createGroupWindowWrap}>
-      <header>
+      <header className={style.header}>
         {store.groupAppStore.isCreatedMode ? (
           <span>Создать группу</span>
         ) : (

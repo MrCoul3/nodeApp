@@ -1,9 +1,0 @@
-.LogoContainer {
-    display: flex;
-    justify-content: center;
-    width: 149px;
-}
-.Logo {
-    cursor: pointer;
-    position: absolute;
-}

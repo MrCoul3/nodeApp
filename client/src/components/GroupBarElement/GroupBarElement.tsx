@@ -75,7 +75,7 @@ export const GroupBarElement = observer((props: IProps) => {
           />
         </div>
 
-        <div>{props.inputData.name}</div>
+        <div title={props.inputData.name} className={style.groupBarElementText}>{props.inputData.name}</div>
       </div>
       {expanded ? (
         <div className={style.groupExpand}>{renderExpanded()}</div>
