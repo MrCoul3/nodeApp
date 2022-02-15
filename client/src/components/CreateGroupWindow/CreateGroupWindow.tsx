@@ -15,6 +15,7 @@ import { FlexContainer } from "../containers/flex/FlexContainer";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useStore } from "../../hooks/useStore";
 import { IGroupList } from "../../stores/GroupAppStore";
+import {strings} from "../../locale";
 
 export interface IFieldsValue {
   id?: string | undefined;
@@ -152,9 +153,9 @@ export const CreateGroupWindow = observer(() => {
     <div className={style.createGroupWindowWrap}>
       <header className={style.header}>
         {store.groupAppStore.isCreatedMode ? (
-          <span>Создать группу</span>
+          <span>{strings.createGroup}</span>
         ) : (
-          <span>Изменить группу</span>
+          <span>{strings.editGroup}</span>
         )}
       </header>
       <section>

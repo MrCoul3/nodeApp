@@ -18,6 +18,7 @@ export const PERMISSIONS_ENDPOINT = `http://permissions.${UPPER_LEVEL_DOMAIN}/js
 const DOMAIN = "develop-opo";
 // export const GROUPS_APP_ENDPOINT = `http://vms-groups.${UPPER_LEVEL_DOMAIN}/jsonrpc/service`;
 export const GROUPS_APP_ENDPOINT = `http://vms-groups.${DOMAIN}/jsonrpc/service`;
+
 export const OBJECTS_CLASSES = `http://objects.${DOMAIN}/services/objectClass`;
 export const OBJECTS = `http://objects.${DOMAIN}/services/object`;
 

@@ -249,18 +249,6 @@ export class GroupAppStore {
     }
   }
 
-  createGroupInRoot(values: IFieldsValue) {
-    console.log(values);
-  }
-
-  createGroupInGroup(values: IFieldsValue) {
-    console.log("createGroupInGroup", values);
-    // ??? как создать группу внутри другой группы
-  }
-
-  async getGroupByID(id: string | undefined) {
-    // return ( result as IGroupList)
-  }
 
   // обновляет данные о группе на сервере
   updateGroup(values: IFieldsValue) {

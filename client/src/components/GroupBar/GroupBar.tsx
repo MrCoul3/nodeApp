@@ -7,6 +7,7 @@ import { GroupBarElement } from "../GroupBarElement/GroupBarElement";
 import { Button } from "@mui/material";
 import { CreateGroupIcon } from "../../icons/CreateGroupIcon";
 import { CreateGroupWindow } from "../CreateGroupWindow/CreateGroupWindow";
+import {strings} from "../../locale";
 
 export const GroupBar = observer(() => {
   const store = useStore();
@@ -41,7 +42,7 @@ export const GroupBar = observer(() => {
           color="primary"
           value="new_group"
         >
-          <span className={style.buttonText}>Новая группа</span>
+          <span className={style.buttonText}>{strings.buttons.newGroup}</span>
         </Button>
       </div>
       {store.groupAppStore.isCreatedMode || store.groupAppStore.isEditMode ? (

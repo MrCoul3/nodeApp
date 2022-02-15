@@ -25,6 +25,8 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { toJS } from "mobx";
 import { InformationFrame } from "../../InformationFrame/InformationFrame";
+import { AddObjectFrame } from "../../AddObjectFrame/AddObjectFrame";
+import {strings} from "../../../locale";
 export const GroupWindowHead = observer(() => {
   const store = useStore();
 
@@ -32,6 +34,8 @@ export const GroupWindowHead = observer(() => {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [showInfoFrame, setShowInfoFrame] = React.useState<boolean>(false);
+  const [showAddObjectFrame, setShowAddObjectFrame] =
+    React.useState<boolean>(false);
 
   const handleContextMenuOpen = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -92,7 +96,7 @@ export const GroupWindowHead = observer(() => {
           >
             {store.groupAppStore.selectedGroupElement
               ? store.groupAppStore.selectedGroupElement?.name
-              : "Список групп"}
+              : strings.groupList}
           </span>
         </FlexContainer>
 
@@ -103,7 +107,7 @@ export const GroupWindowHead = observer(() => {
                 setIsDeleteGroup(false);
                 handleClickOpen();
               }}
-              title={"Удалить выбранные"}
+              title={strings.deleteSelected}
               variant="contained"
               color="primary"
               value="add_button"
@@ -122,7 +126,7 @@ export const GroupWindowHead = observer(() => {
 
           <Button
             onClick={() => store.groupAppStore.setCreatedMode(true)}
-            title={"Создать группу"}
+            title={strings.createGroup}
             variant="contained"
             color="primary"
             value="add_button"
@@ -154,7 +158,7 @@ export const GroupWindowHead = observer(() => {
         >
           <FlexContainer gap={"10px"}>
             <CreateGroupIcon width={"24px"} fill={"#767676"} />
-            <span>Создать группу</span>
+            <span>{strings.createGroup}</span>
           </FlexContainer>
         </MenuItem>
 
@@ -166,7 +170,7 @@ export const GroupWindowHead = observer(() => {
         >
           <FlexContainer gap={"10px"}>
             <EditGroupIcon width={"24px"} fill={"#767676"} />
-            <span>Изменить группу</span>
+            <span>{strings.editGroup}</span>
           </FlexContainer>
         </MenuItem>
 
@@ -179,7 +183,7 @@ export const GroupWindowHead = observer(() => {
         >
           <FlexContainer gap={"10px"}>
             <DeleteGroupIcon width={"24px"} fill={"#767676"} />
-            <span>Удалить группу</span>
+            <span>{strings.deleteGroup}</span>
           </FlexContainer>
         </MenuItem>
 
@@ -193,14 +197,14 @@ export const GroupWindowHead = observer(() => {
           >
             <FlexContainer gap={"10px"}>
               <DeleteGroupIcon width={"24px"} fill={"#767676"} />
-              <span>Удалить выбранные</span>
+              <span>{strings.deleteSelected}</span>
             </FlexContainer>
           </MenuItem>
         ) : null}
 
         <MenuItem
           onClick={() => {
-            setShowInfoFrame(true)
+            setShowInfoFrame(true);
             handleContextMenuClose();
           }}
         >
@@ -212,6 +216,7 @@ export const GroupWindowHead = observer(() => {
 
         <MenuItem
           onClick={() => {
+            setShowAddObjectFrame(true);
             handleContextMenuClose();
           }}
         >
@@ -252,7 +257,12 @@ export const GroupWindowHead = observer(() => {
           </Button>
         </DialogActions>
       </Dialog>
-      {showInfoFrame ? <InformationFrame onClick={()=> setShowInfoFrame(false)} /> : null}
+      {showInfoFrame ? (
+        <InformationFrame onClick={() => setShowInfoFrame(false)} />
+      ) : null}
+      {showAddObjectFrame ? (
+        <AddObjectFrame onClick={() => setShowAddObjectFrame(false)} />
+      ) : null}
     </div>
   );
 });

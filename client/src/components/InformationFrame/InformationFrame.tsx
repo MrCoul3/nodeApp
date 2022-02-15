@@ -16,20 +16,13 @@ export const InformationFrame = observer((props: IProps) => {
     <div className={style.infoFrameWrap}>
       <div className={style.infoFrame}>
         <header className={style.header}>
-          <span>Информация о группе</span>
+          <span>{strings.infoFrame.ingoAboutGroup}</span>
           <IconButton onClick={props.onClick}>
             <CloseOutlinedIcon />
           </IconButton>
         </header>
         <main className={style.main}>
-          {/*<FlexContainer gap={'20px'}>*/}
-          {/*  <span className={style.firstCol}>{strings.infoFrame.name}</span>*/}
-          {/*  <span >{strings.infoFrame.name}</span>*/}
-          {/*</FlexContainer>*/}
-          {/*<FlexContainer>*/}
-          {/*  <span className={style.firstCol}>{strings.infoFrame.description}</span>*/}
-          {/*  <span >{strings.infoFrame.name}</span>*/}
-          {/*</FlexContainer>*/}
+
 
           <FlexContainer>
             <div className={style.leftSide}>
