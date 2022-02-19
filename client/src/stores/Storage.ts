@@ -24,4 +24,5 @@ export class Storage {
       throw new Error();
     }
   }
+
 }
