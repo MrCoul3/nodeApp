@@ -1,5 +1,5 @@
 import React from "react";
-
+import style from './styles.module.css';
 // ВАРИАНТЫ
 // с хедером / без хедера
 // с поиском / без поиска
@@ -8,19 +8,33 @@ import React from "react";
 interface IProps<T> {
   type?: "list" | "plate";
   objectsListArray: T[];
+  firstLine(data: T): string;
 }
 
 export const SimpleObjectsList = <T,>(props: IProps<T>) => {
   const type = props.type ? props.type : "list";
 
   const renderList = () => {
-    return props.objectsListArray.map((object) => (
-      <div>{Object.values(object)[0]}</div>
-    ));
+    if (type === 'list') {
+      return props.objectsListArray.map((object: T) => (
+          <div>{props.firstLine(object)}</div>
+      ));
+    }
+    if (type === 'plate') {
+      return props.objectsListArray.map((object: T) => (
+          <div >{props.firstLine(object)}</div>
+      ));
+    }
+
   };
+
+
+
   return (
     <div>
-      <div>{renderList()}</div>
+      <div>
+        {renderList()}
+      </div>
     </div>
   );
 };
