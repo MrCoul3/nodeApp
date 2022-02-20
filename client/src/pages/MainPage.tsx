@@ -11,8 +11,11 @@ export const MainPage = observer(() => {
   return (
     <div className="MainPage">
       <SimpleObjectsList
+        keys={(data) => data.id}
         objectsListArray={store.fetchData.exampleData}
         firstLine={(data) => data.name}
+        // secondLine={(data) => data.id}
+        // type={'plate'}
       />
     </div>
   );

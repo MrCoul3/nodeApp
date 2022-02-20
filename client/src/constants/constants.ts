@@ -1,16 +1,18 @@
 export interface IExampleList {
   name: string;
-  surname?: string;
+  id: string;
 }
 export const exampleList: IExampleList[] = [
   {
     name: "example 1",
-    surname: "surname 2",
+    id: "ascekhg12dfv2",
   },
   {
     name: "example 2",
+    id: "kb84ovmfsa",
   },
   {
     name: "example 3",
+    id: ".kci7328jfls",
   },
 ];
