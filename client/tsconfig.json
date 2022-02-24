@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "outDir": "./built",
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "lib": [

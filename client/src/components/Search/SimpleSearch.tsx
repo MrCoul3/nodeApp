@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { IExampleList } from "../../constants/constants";
 import {
   Button,
@@ -48,7 +48,7 @@ export const SimpleSearch = (props: IProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  function renderFilterButton() {
+  const renderFilterButton = () => {
     if (props.filters) {
       return (
         <Button
@@ -62,14 +62,66 @@ export const SimpleSearch = (props: IProps) => {
         </Button>
       );
     }
+  };
+  const [filterData, setFilterData] = useState<Array<string> | undefined>([]);
+  const [inputProps, setInputProps] = useState<
+    { label: string; type: string | undefined }[] | undefined
+  >([]);
+
+  useEffect(() => {
+    const data = props.filterLabels?.map((label, labelIndex) => {
+      return {
+        label: label,
+        type: props.filterTypes?.find(
+          (type, typeIndex) => typeIndex === labelIndex
+        ),
+      };
+    });
+    setInputProps(() => data);
+  }, []);
+
+  useEffect(() => {
+    console.log(filterData);
+  }, [inputProps, filterData]);
+
+  function getChecked(currentType: string | undefined) {
+    if (filterData?.length && currentType) {
+      return filterData.includes(currentType);
+    }
   }
+  const [checked, setChecked] = useState<Array<boolean>>([]);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {}
   function renderFilterCheckBoxes() {
-    if (props.filterLabels?.length) {
-     return  props.filterLabels.map((label) => (
-        <MenuItem>
+    if (inputProps?.length) {
+      return inputProps.map((item, index) => (
+        <MenuItem dense={true}>
           <FormControlLabel
-            control={<Checkbox  />}
-            label={label}
+            sx={{
+              minWidth: "100px",
+              display: "block",
+              marginRight: "0",
+              height: "35px",
+            }}
+            control={
+              <Checkbox
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  if (e.target.checked) {
+                    setFilterData((prevState: any) => {
+                      return [...prevState, item.type];
+                    });
+                  } else {
+                    setFilterData((prevState: any) => {
+                      return prevState?.filter(
+                        (type: string) => type !== item.type
+                      );
+                    });
+                  }
+                }}
+                checked={getChecked(item.type)}
+              />
+            }
+            label={item.label}
           />
         </MenuItem>
       ));

@@ -29,7 +29,7 @@ export const MainPage = observer(() => {
     <div className="MainPage">
       <SimpleSearch
         filters={true}
-        filterTypes={["vs", "ws", "vm"]}
+        filterTypes={["VS", "WS", "VM"]}
         filterLabels={["vs", "ws", "vm"]}
         onFilterInput={onFilterInput}
       />
