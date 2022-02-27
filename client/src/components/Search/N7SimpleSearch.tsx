@@ -29,7 +29,7 @@ function onFilterInput(e: React.ChangeEvent) {
     }
 }
 
- // Добавить на страницу компонент SimpleSearch -> <SimpleSearch onFilterInput={onFilterInput} />
+ // Добавить на страницу компонент N7SimpleSearch -> <N7SimpleSearch onFilterInput={onFilterInput} />
  **/
 
 interface IProps {
@@ -39,7 +39,7 @@ interface IProps {
   onFilterInput?(e: FormEvent): void;
 }
 
-export const SimpleSearch = (props: IProps) => {
+export const N7SimpleSearch = (props: IProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -102,6 +102,7 @@ export const SimpleSearch = (props: IProps) => {
               display: "block",
               marginRight: "0",
               height: "35px",
+                width: "100%"
             }}
             control={
               <Checkbox
@@ -140,7 +141,14 @@ export const SimpleSearch = (props: IProps) => {
           "aria-labelledby": "basic-button",
         }}
       >
-        {renderFilterCheckBoxes()}
+          <div style={{padding: '0  0 15px'}}>
+              {renderFilterCheckBoxes()}
+          </div>
+
+          <div style={{display: "flex", justifyContent: "center", padding: "5px 5px 0", borderTop: "2px solid #d8d8d8"}}>
+              <Button>cancel</Button>
+              <Button>apply</Button>
+          </div>
       </Menu>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import style from "./style.module.css";
 
@@ -10,18 +10,23 @@ import style from "./style.module.css";
 interface IProps<T> {
   objectsListArray: T[];
   keys(data: T): string;
-  firstLine(data: T): string;
+  firstLine(data: T): string | ReactNode;
   type?: "list" | "plate";
   secondLine?(data: T): string;
+  onItemClick?(data: T): any;
 }
 
-export const SimpleObjectsList = <T,>(props: IProps<T>) => {
+export const N7SimpleObjectsList = <T,>(props: IProps<T>) => {
   const type = props.type ? props.type : "list";
 
   const renderList = () => {
     if (type === "list") {
       return props.objectsListArray.map((object: T) => (
-        <div key={props.firstLine(object)} className={style.listElement}>
+        <div
+          className={style.listElement}
+          key={props.keys(object)}
+          onClick={() => (props.onItemClick ? props.onItemClick(object) : null)}
+        >
           <div className={style.listElementContent}>
             <span>{props.firstLine(object)}</span>
             {props.secondLine ? <span>{props.secondLine(object)}</span> : null}
