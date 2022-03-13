@@ -1,13 +1,13 @@
 import { N7SimpleObjectsList } from "../Lists/N7SimpleObjectsList";
 import { toJS } from "mobx";
 import React from "react";
-import {useStore} from "../../hooks/useStore";
+import { useStore } from "../../hooks/useStore";
 
 export const SideBar = () => {
-    const store = useStore();
+  const store = useStore();
 
   return (
-    <div>
+    <div style={{ width: "200px", padding: "0 10px" }}>
       <N7SimpleObjectsList
         keys={(data) => data.id}
         objectsListArray={store.fetchData.exampleData}

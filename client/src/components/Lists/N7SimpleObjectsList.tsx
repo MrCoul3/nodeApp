@@ -1,6 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 import style from "./style.module.css";
+import classNames from "classnames";
 
 // ВАРИАНТЫ
 // с хедером / без хедера
@@ -13,22 +14,31 @@ interface IProps<T> {
   firstLine(data: T): string | ReactNode;
   type?: "list" | "plate";
   secondLine?(data: T): string;
-  onItemClick?(data: T): any;
+  onItemClick(data: T): any;
 }
 
 export const N7SimpleObjectsList = <T,>(props: IProps<T>) => {
   const type = props.type ? props.type : "list";
+  const [selected, setSelected] = useState<number>();
 
   const renderList = () => {
     if (type === "list") {
-      return props.objectsListArray.map((object: T) => (
+      return props.objectsListArray.map((object: T, index) => (
         <div
-          className={style.listElement}
+          className={classNames(style.listElement)}
           key={props.keys(object)}
-          onClick={() => (props.onItemClick ? props.onItemClick(object) : null)}
+          onClick={() => {
+            setSelected(index);
+            props.onItemClick(object);
+          }}
         >
-          <div className={style.listElementContent}>
-            <span>{props.firstLine(object)}</span>
+          <div
+            className={classNames(
+              style.listElementContent,
+              index === selected ? style.selected : null,
+            )}
+          >
+            <span className={style.firstLine}>{props.firstLine(object)}</span>
             {props.secondLine ? <span>{props.secondLine(object)}</span> : null}
           </div>
         </div>

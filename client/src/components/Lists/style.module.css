@@ -4,15 +4,39 @@
     border: 1px solid cadetblue;
 }
 .listElement {
+    color: #82A37F;
     width: 100%;
+    cursor: pointer;
+    height: 40px;
+    /*transition: all ease .1s;*/
 }
-.listElement:hover {
-    background: #d7d7d7;
 
+.listElement:hover {
 }
+
 .listElementContent {
     height: 35px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 10px;
+    transition: all ease .1s;
+}
+.listElementContent:hover {
+    background: rgba(186, 209, 184, 0.73);
+    color: #50694d;
+}
+
+.firstLine {
+    padding-left: 15px;
+}
+.selected {
+    color: #1F504C;
+    background: #BAD1B8;
+    font-weight: bold;
+}
+
+.selected:hover {
+    background: #BAD1B8;
+    color: #1F504C;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { observer } from "mobx-react";
 import { exampleList, IExampleList } from "../constants/constants";
 import { N7SimpleSearch } from "../components/Search/N7SimpleSearch";
@@ -27,6 +27,9 @@ export const MainPage = observer(() => {
   //     );
   //   }
   // }
+  useEffect(()=> {
+    store.fetchData.fetchData();
+  },[])
 
   function onItemClick(data: IExampleList) {
     console.log(data);
