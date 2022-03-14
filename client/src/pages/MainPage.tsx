@@ -29,6 +29,7 @@ export const MainPage = observer(() => {
   // }
   useEffect(()=> {
     store.fetchData.fetchData();
+    store.fetchData.fetchJsonRpc();
   },[])
 
   function onItemClick(data: IExampleList) {

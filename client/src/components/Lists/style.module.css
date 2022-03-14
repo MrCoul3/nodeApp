@@ -8,10 +8,12 @@
     width: 100%;
     cursor: pointer;
     height: 40px;
+    user-select: none;
     /*transition: all ease .1s;*/
 }
 
 .listElement:hover {
+
 }
 
 .listElementContent {

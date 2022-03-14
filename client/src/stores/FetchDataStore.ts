@@ -28,5 +28,24 @@ export class FetchDataStore {
   setData(values: any[]) {
     this.data = values;
   }
+
+  async fetchJsonRpc() {
+    try {
+      const response = fetch("/jsonrpc", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          id: 1,
+          method: "add_content",
+          params: {
+            name: 'N7SimpleObjectList'
+          },
+        }),
+      });
+    } catch (e) {}
+  }
   // updateData
 }
