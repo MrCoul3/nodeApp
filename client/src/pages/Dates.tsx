@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import moment from "moment/moment";
+import React from "react";
 // npm i --save moment
 
 // напоминалка по созданию Date объектов с помощью библиотеки moment
@@ -29,5 +30,5 @@ export const Dates = () => {
     setDate(momentYesterdayEnd);
   }, []);
 
-  return <div></div>;
+  return <div>ds</div>;
 };

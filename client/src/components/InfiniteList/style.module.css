@@ -1,0 +1,7 @@
+
+.menuItemsWrap {
+    min-width: 375px;
+    max-height: 270px;
+    overflow-y: scroll;
+    min-height: 350px;
+}

@@ -1,6 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { exampleList, IExampleList } from "../constants/constants";
-
+interface IUsersData {
+_id: string, name: string
+}
 export class FetchDataStore {
   constructor() {
     makeAutoObservable(this);
@@ -29,7 +31,11 @@ export class FetchDataStore {
     this.data = values;
   }
 
-  async fetchJsonRpc() {
+  usersData: IUsersData[] = [];
+  setUsersData(value: IUsersData[]) {
+    this.usersData = [...this.usersData, ...value]
+  }
+  async fetchJsonRpc(limit: number, offset?: number, ) {
     try {
       const response = fetch("/jsonrpc", {
         method: "POST",
@@ -39,12 +45,21 @@ export class FetchDataStore {
         body: JSON.stringify({
           jsonrpc: "2.0",
           id: 1,
-          method: "add_content",
+          method: "get_users",
           params: {
-            name: 'N7SimpleObjectList'
+            offset: offset ? offset : 0,
+            limit: limit,
           },
         }),
       });
+      response
+        .then((data) => data.json())
+        .then((data) => {
+          console.log(data.result);
+          if (data.result) {
+            this.setUsersData(data.result)
+          }
+        });
     } catch (e) {}
   }
   // updateData
