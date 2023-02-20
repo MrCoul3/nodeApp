@@ -1,0 +1,61 @@
+.dateTimeInputWrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 5px;
+    height: 35px;
+    min-width: 135px;
+    z-index: 100;
+    justify-content: space-between;
+    padding: 0 2px;
+}
+.dateTimeInputWrap:focus-within {
+    border-color: #00519c;
+}
+
+.dateInput {
+    border: none;
+    outline: none;
+    min-width: 91px;
+    font-family: Roboto, sans-serif !important;
+    font-size: 12px;
+    position: relative;
+    left: -2px;
+    letter-spacing: -1px;
+}
+
+.timeInput {
+    border: none;
+    outline: none;
+    font-family: Roboto, sans-serif !important;
+    font-size: 12px;
+    min-width: 58px;
+    /*margin-left: -2px;*/
+    position: relative;
+    left: -20px;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    display: none;
+}
+.timeInput::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    display: none;
+}
+
+.icon {
+    margin-right: 3px;
+    margin-bottom: 0;
+    cursor: pointer;
+    width: 15px !important;
+    height: 15px !important;
+}
+
+.timeInputScroller {
+    width: 165px;
+    height: 70px;
+    overflow: hidden;
+    border-top: solid 10px #ddd;
+    border-bottom: solid 10px #ddd;
+}

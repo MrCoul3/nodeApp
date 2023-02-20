@@ -1,8 +1,0 @@
-*.log
-.DS_Store
-node_modules
-.cache
-example
-test
-yarn.lock
-package-lock.json
